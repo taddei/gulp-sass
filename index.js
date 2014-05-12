@@ -10,6 +10,11 @@ module.exports = function (options) {
   var opts = options ? options : {};
 
   function nodeSass (file, cb) {
+    if (process.platform == "win32") {
+      file.path = path.relative(".", file.path)
+      file.path = file.path.replace(/\\/g, "/");
+    }
+    
     var fileDir = path.dirname(file.path);
     var addedLocalDirPath = false;
 
